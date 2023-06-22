@@ -1,5 +1,5 @@
-import type { ArrayString } from "@skyra/env-utilities";
 import type { ImageAPI } from "../image/client";
+import type { ArrayString } from "@skyra/env-utilities";
 
 declare module "@skyra/env-utilities" {
 	interface Env {

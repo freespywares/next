@@ -1,5 +1,5 @@
-import { UserError } from "@sapphire/framework";
 import { str } from "../utils/common";
+import { UserError } from "@sapphire/framework";
 import { Stopwatch } from "@sapphire/stopwatch";
 
 export class ImageAPI {

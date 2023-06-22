@@ -1,7 +1,7 @@
-import { SapphireClient, container } from "@sapphire/framework";
-import { greenBright } from "colorette";
 import { clientOptions } from "../constants";
 import { ImageAPI } from "../image/client";
+import { SapphireClient, container } from "@sapphire/framework";
+import { greenBright } from "colorette";
 
 export class ZeyrClient extends SapphireClient {
 	constructor() {

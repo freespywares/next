@@ -1,7 +1,7 @@
 import "./lib/setup";
 
-import { Result } from "@sapphire/framework";
 import { ZeyrClient } from "./lib/structures/ZeyrClient";
+import { Result } from "@sapphire/framework";
 
 const client = new ZeyrClient();
 

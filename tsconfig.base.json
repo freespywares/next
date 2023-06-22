@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"emitDecoratorMetadata": false,
 		"skipLibCheck": true,
-        "removeComments": true,
-        "target": "ESNext"
+		"removeComments": true,
+		"target": "ESNext"
 	}
 }
