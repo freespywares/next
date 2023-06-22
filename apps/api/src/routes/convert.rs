@@ -19,12 +19,12 @@ pub async fn convert_type(
                 }
             }
             "jpeg" => {
-                if let Ok(result) = ImageHelper::new(image).jpeg_response() {
+                if let Ok(result) = ImageHelper::new(image).jpeg_response(Some(start_time)) {
                     return result;
                 }
             }
             "webp" => {
-                if let Ok(result) = ImageHelper::new(image).webp_response() {
+                if let Ok(result) = ImageHelper::new(image).webp_response(Some(start_time)) {
                     return result;
                 }
             }

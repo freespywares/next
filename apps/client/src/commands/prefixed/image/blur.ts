@@ -1,7 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Args, Command } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
-import { cast } from "@sapphire/utilities";
 import { AttachmentBuilder, type Message } from "discord.js";
 
 @ApplyOptions<Command.Options>({
@@ -11,11 +10,11 @@ import { AttachmentBuilder, type Message } from "discord.js";
 export class UserCommand extends Command {
 	public override async messageRun(message: Message, args: Args) {
 		const url = await args.pick("url");
-		const sigma = cast<Uint32Array>(args.getOption("sigma"));
+		const sigma = args.getOptionResult("sigma");
 
 		const { buffer, time } = await this.container.api.blur(
 			url.toString(),
-			sigma
+			sigma.unwrap()
 		);
 
 		const file = new AttachmentBuilder(Buffer.from(buffer));

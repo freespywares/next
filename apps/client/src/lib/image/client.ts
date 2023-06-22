@@ -1,7 +1,7 @@
 import { fromTime, str } from "../utils/common";
 import { UserError } from "@sapphire/framework";
 import { Stopwatch } from "@sapphire/stopwatch";
-import { cast } from "@sapphire/utilities";
+import { isNullishOrEmpty } from "@sapphire/utilities";
 
 export class ImageAPI {
 	baseURL: string;
@@ -15,7 +15,7 @@ export class ImageAPI {
 	 * @param sigma Measure of how much to blur by
 	 * @returns ArrayBuffer
 	 */
-	public async blur(url: string, sigma: Uint32Array) {
+	public async blur(url: string, sigma: string) {
 		return this.req(Endpoints.BLUR, url, {
 			sigma
 		});
@@ -27,7 +27,7 @@ export class ImageAPI {
 	 * @param value Brighten level
 	 * @returns ArrayBuffer
 	 */
-	public async brighten(url: string, value: Int32Array) {
+	public async brighten(url: string, value: string) {
 		return this.req(Endpoints.BRIGHTEN, url, {
 			value
 		});
@@ -40,7 +40,7 @@ export class ImageAPI {
 	 * @param height New height
 	 * @returns ArrayBuffer
 	 */
-	public async resize(url: string, width: Uint32Array, height: Uint32Array) {
+	public async resize(url: string, width: string, height: string) {
 		return this.req(Endpoints.RESIZE, url, {
 			width,
 			height
@@ -62,7 +62,7 @@ export class ImageAPI {
 	 */
 	public async ping() {
 		const timer = new Stopwatch();
-		await (await fetch(`${this.baseURL}/health`)).text();
+		await fetch(`${this.baseURL}/health`);
 
 		return timer.stop().toString();
 	}
@@ -72,22 +72,30 @@ export class ImageAPI {
 		url: string,
 		payload?: T
 	) {
-		return fetch(
+		const response = await fetch(
 			str(`${this.baseURL}${endpoint}?url={url}`, {
 				url: encodeURIComponent(url),
 				...payload
 			})
-		)
-			.then(async (i) => ({
-				buffer: await i.arrayBuffer(),
-				time: fromTime(cast<number>(i.headers.get("X-Took")))
-			}))
-			.catch(() => {
-				throw new UserError({
-					message: "The API is down right now",
-					identifier: "RequestImageFailed"
-				});
+		);
+
+		const timeHeader = response.headers.get("X-Took");
+
+		if (isNullishOrEmpty(timeHeader) || response.status !== 200)
+			throw new UserError({
+				identifier: "RequestFailed",
+				message: await response.text()
 			});
+
+		const [buffer, time] = await Promise.all([
+			response.arrayBuffer(),
+			fromTime(response.headers.get("X-Took")!)
+		]);
+
+		return {
+			buffer,
+			time
+		};
 	}
 }
 

@@ -18,7 +18,7 @@ pub async fn get_image_from_url(url: &str) -> anyhow::Result<DynamicImage> {
 }
 
 pub fn empty_response() -> HttpResponse {
-    HttpResponse::Ok()
+    HttpResponse::BadRequest()
         .insert_header(CacheControl(vec![CacheDirective::NoCache]))
         .body(Vec::new())
 }
@@ -58,7 +58,9 @@ impl ImageHelper {
             .body(bytes))
     }
 
-    pub fn jpeg_response(&self) -> anyhow::Result<HttpResponse> {
+    pub fn jpeg_response(&self, start_time: Option<Instant>) -> anyhow::Result<HttpResponse> {
+        let time = start_time.unwrap_or(Instant::now());
+
         let mut bytes = Vec::new();
         self.image.write_to(
             &mut Cursor::new(&mut bytes),
@@ -75,10 +77,13 @@ impl ImageHelper {
                 false,
                 etag_value.to_owned(),
             )]))
+            .insert_header(("X-Took", time.elapsed().as_millis().to_string()))
             .body(bytes))
     }
 
-    pub fn webp_response(&self) -> anyhow::Result<HttpResponse> {
+    pub fn webp_response(&self, start_time: Option<Instant>) -> anyhow::Result<HttpResponse> {
+        let time = start_time.unwrap_or(Instant::now());
+
         let mut bytes = Vec::new();
         self.image
             .write_to(&mut Cursor::new(&mut bytes), image::ImageOutputFormat::WebP)?;
@@ -93,6 +98,7 @@ impl ImageHelper {
                 false,
                 etag_value.to_owned(),
             )]))
+            .insert_header(("X-Took", time.elapsed().as_millis().to_string()))
             .body(bytes))
     }
 }

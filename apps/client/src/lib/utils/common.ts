@@ -1,3 +1,4 @@
+import { cast } from "@sapphire/utilities";
 import { formatMs } from "./time";
 
 type FormatArgs = Record<string, unknown>;
@@ -8,8 +9,8 @@ export function str<T extends FormatArgs>(format: string, args: T): string {
 	});
 }
 
-export function fromTime(time: number) {
+export function fromTime(time: string | number) {
 	return str("job done in {time}", {
-		time: formatMs(time)
+		time: formatMs(cast<number>(time))
 	});
 }
