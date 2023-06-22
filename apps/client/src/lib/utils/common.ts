@@ -1,5 +1,5 @@
-import { cast } from "@sapphire/utilities";
 import { formatMs } from "./time";
+import { cast } from "@sapphire/utilities";
 
 type FormatArgs = Record<string, unknown>;
 
