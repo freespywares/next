@@ -34,14 +34,9 @@ export class ImageAPI {
 
 	public async ping() {
 		const timer = new Stopwatch();
-		const result = await (await fetch(`${this.baseURL}/health`)).text();
+		await (await fetch(`${this.baseURL}/health`)).text();
 
-		if (result === "success") {
-			return timer.stop().toString();
-		} else {
-			timer.stop();
-			return "api down";
-		}
+		return timer.stop().toString();
 	}
 
 	private async req<T extends RequestPayload>(
