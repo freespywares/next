@@ -1,6 +1,7 @@
-import { str } from "../utils/common";
+import { fromTime, str } from "../utils/common";
 import { UserError } from "@sapphire/framework";
 import { Stopwatch } from "@sapphire/stopwatch";
+import { cast } from "@sapphire/utilities";
 
 export class ImageAPI {
 	baseURL: string;
@@ -32,6 +33,33 @@ export class ImageAPI {
 		});
 	}
 
+	/**
+	 * Resizes an image
+	 * @param url URL of the Image
+	 * @param width New width
+	 * @param height New height
+	 * @returns ArrayBuffer
+	 */
+	public async resize(url: string, width: Uint32Array, height: Uint32Array) {
+		return this.req(Endpoints.RESIZE, url, {
+			width,
+			height
+		});
+	}
+
+	/**
+	 * Grayscales an image
+	 * @param url URL of the image
+	 * @returns ArrayBuffer
+	 */
+	public async grayscale(url: string) {
+		return this.req(Endpoints.GRAYSCALE, url);
+	}
+
+	/**
+	 * "Pings" the API to get its status
+	 * @returns string
+	 */
 	public async ping() {
 		const timer = new Stopwatch();
 		await (await fetch(`${this.baseURL}/health`)).text();
@@ -45,11 +73,15 @@ export class ImageAPI {
 		payload?: T
 	) {
 		return fetch(
-			str(`${this.baseURL}${endpoint}?url=${encodeURIComponent(url)}`, {
+			str(`${this.baseURL}${endpoint}?url={url}`, {
+				url: encodeURIComponent(url),
 				...payload
 			})
 		)
-			.then((i) => i.arrayBuffer())
+			.then(async (i) => ({
+				buffer: await i.arrayBuffer(),
+				time: fromTime(cast<number>(i.headers.get("X-Took")))
+			}))
 			.catch(() => {
 				throw new UserError({
 					message: "The API is down right now",
@@ -59,7 +91,7 @@ export class ImageAPI {
 	}
 }
 
-type RequestPayload = Record<string, unknown>;
+export type RequestPayload = Record<string, unknown>;
 
 export enum Endpoints {
 	BLUR = "/blur/{sigma}",
@@ -67,5 +99,6 @@ export enum Endpoints {
 	CONVERT = "/convert/{format}",
 	FLIP = "/flip/{orientation}",
 	GRAYSCALE = "/grayscale",
-	HUEROTATE = "/huerotate/{value}"
+	HUEROTATE = "/huerotate/{value}",
+	RESIZE = "/resize/{width}/{height}"
 }

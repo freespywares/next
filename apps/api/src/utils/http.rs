@@ -5,7 +5,8 @@ use actix_web::{
 use image::DynamicImage;
 use reqwest::Client;
 use serde::Deserialize;
-use std::io::Cursor;
+use std::{io::Cursor, time::Instant};
+
 
 pub async fn get_image_from_url(url: &str) -> anyhow::Result<DynamicImage> {
     let client = Client::new();
@@ -36,13 +37,15 @@ impl ImageHelper {
         Self { image }
     }
 
-    pub fn png_response(&self) -> anyhow::Result<HttpResponse> {
+    pub fn png_response(&self, start_time: Option<Instant>) -> anyhow::Result<HttpResponse> {
+        let time = start_time.unwrap_or(Instant::now());
+    
         let mut bytes = Vec::new();
         self.image
             .write_to(&mut Cursor::new(&mut bytes), image::ImageOutputFormat::Png)?;
-
+    
         let etag_value = format!("{:x}", md5::compute(&bytes));
-
+    
         Ok(HttpResponse::Ok()
             .content_type(ContentType::png())
             .insert_header(CacheControl(vec![CacheDirective::MaxAge(360u32)]))
@@ -51,6 +54,7 @@ impl ImageHelper {
                 false,
                 etag_value.to_owned(),
             )]))
+            .insert_header(("X-Took", time.elapsed().as_millis().to_string()))
             .body(bytes))
     }
 

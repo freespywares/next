@@ -29,11 +29,7 @@ async fn main() -> std::io::Result<()> {
             .service(health)
             .service(
                 web::scope("/v1")
-                    .service(
-                        web::scope("/resize")
-                            .service(routes::resize::resize_by_width)
-                            .service(routes::resize::resize_by_height),
-                    )
+                    .service(routes::resize::resize)
                     .service(routes::convert::convert_type)
                     .service(routes::flip::flip_orientation)
                     .service(routes::blur::blur_image)

@@ -5,17 +5,20 @@ import { cast } from "@sapphire/utilities";
 import { AttachmentBuilder, type Message } from "discord.js";
 
 @ApplyOptions<Command.Options>({
-	description: "Brightens an image",
-	options: ["value"]
+	description: "Resizes an image",
+	options: ["width", "height"]
 })
 export class UserCommand extends Command {
 	public override async messageRun(message: Message, args: Args) {
 		const url = await args.pick("url");
-		const value = cast<Int32Array>(args.getOption("value"));
+		const [width, height] = cast<Uint32Array[]>(
+			args.getOptions("width", "height")
+		);
 
-		const { buffer, time } = await this.container.api.brighten(
+		const { buffer, time } = await this.container.api.resize(
 			url.toString(),
-			value
+			width,
+			height
 		);
 
 		const file = new AttachmentBuilder(Buffer.from(buffer));
