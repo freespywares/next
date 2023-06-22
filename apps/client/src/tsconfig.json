@@ -1,0 +1,20 @@
+{
+    "extends": "../../../tsconfig.base.json",
+    "compilerOptions": {
+        "allowJs": true,
+        "outDir": "../dist",
+		"baseUrl": ".",
+        "rootDir": ".",
+        "tsBuildInfoFile": "../dist/.tsbuildinfo",
+        "composite": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "esModuleInterop": true,
+    },
+    "include": [
+        "."
+    ],
+    "exclude": [
+        "./tsconfig.json"
+    ]
+}
