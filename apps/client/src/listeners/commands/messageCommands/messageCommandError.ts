@@ -1,8 +1,8 @@
+import { str } from "../../../lib/utils/common";
 import type { Events, MessageCommandErrorPayload } from "@sapphire/framework";
 import { Identifiers, Listener, type UserError } from "@sapphire/framework";
-import { str } from "../../../lib/utils/common";
-import { cast } from "@sapphire/utilities";
 import { reply } from "@sapphire/plugin-editable-commands";
+import { cast } from "@sapphire/utilities";
 
 export class UserEvent extends Listener<typeof Events.MessageCommandError> {
 	public async run(

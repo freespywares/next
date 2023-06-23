@@ -1,8 +1,8 @@
+import { getDiscordMedia } from "../../../lib/utils/common";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Args, Command } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
 import { AttachmentBuilder, type Message } from "discord.js";
-import { getDiscordMedia } from "../../../lib/utils/common";
 
 @ApplyOptions<Command.Options>({
 	description: "Blurs an image",

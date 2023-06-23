@@ -1,8 +1,8 @@
-import { type Args } from "@sapphire/framework";
+import { attachments } from "../cache/attachment";
 import { formatMs } from "./time";
+import { type Args } from "@sapphire/framework";
 import { cast } from "@sapphire/utilities";
 import type { Message } from "discord.js";
-import { attachments } from "../cache/attachment";
 
 type FormatArgs = Record<string, unknown>;
 
