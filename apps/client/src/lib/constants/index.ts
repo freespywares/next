@@ -2,7 +2,7 @@ import { LogLevel } from "@sapphire/framework";
 import { type ClientOptions, GatewayIntentBits, Partials } from "discord.js";
 
 export const clientOptions: ClientOptions = {
-	defaultPrefix: "&",
+	defaultPrefix: "-",
 	regexPrefix: /^(hey +)?zeyr[,! ]/i,
 	caseInsensitiveCommands: true,
 	logger: {

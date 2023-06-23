@@ -57,6 +57,36 @@ export class ImageAPI {
 	}
 
 	/**
+	 * Changes an image format
+	 * @param url URL of the image
+	 * @param format New format
+	 * @returns ArrayBuffer
+	 */
+	public async convert(url: string, format: ConvertFormats) {
+		return this.req(Endpoints.CONVERT, url, { format });
+	}
+
+	/**
+	 * Flips the image
+	 * @param url URL of the image
+	 * @param orientation Orientation
+	 * @returns ArrayBuffer
+	 */
+	public async flip(url: string, orientation: FlipOrientations) {
+		return this.req(Endpoints.FLIP, url, { orientation });
+	}
+
+	/**
+	 * Rotates the image hue color
+	 * @param url URL of the image
+	 * @param value Number in degs
+	 * @returns ArrayBuffer
+	 */
+	public async huerotate(url: string, value: string) {
+		return this.req(Endpoints.HUEROTATE, url, { value });
+	}
+
+	/**
 	 * "Pings" the API to get its status
 	 * @returns string
 	 */
@@ -73,7 +103,7 @@ export class ImageAPI {
 		payload?: T
 	) {
 		const response = await fetch(
-			str(`${this.baseURL}${endpoint}?url={url}`, {
+			str(`${this.baseURL}/image${endpoint}?url={url}`, {
 				url: encodeURIComponent(url),
 				...payload
 			})
@@ -100,6 +130,8 @@ export class ImageAPI {
 }
 
 export type RequestPayload = Record<string, unknown>;
+export type FlipOrientations = "vertical" | "horizontal";
+export type ConvertFormats = "png" | "webp" | "jpeg";
 
 export enum Endpoints {
 	BLUR = "/blur/{sigma}",

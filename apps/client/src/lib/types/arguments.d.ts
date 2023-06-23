@@ -18,3 +18,9 @@ declare module "@sapphire/pieces" {
 		api: ImageAPI;
 	}
 }
+
+declare module "@sapphire/framework" {
+	interface ArgType {
+		media: string;
+	}
+}

@@ -28,7 +28,7 @@ async fn main() -> std::io::Result<()> {
             .service(hello)
             .service(health)
             .service(
-                web::scope("/v1")
+                web::scope("/v1/image")
                     .service(routes::resize::resize)
                     .service(routes::convert::convert_type)
                     .service(routes::flip::flip_orientation)

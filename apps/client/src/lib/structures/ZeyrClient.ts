@@ -7,7 +7,7 @@ export class ZeyrClient extends SapphireClient {
 	constructor() {
 		super(clientOptions);
 
-		container.api = new ImageAPI(process.env.IMAGE_API_URL!);
+		container.api = new ImageAPI(process.env.API_URL!);
 	}
 
 	public async start() {

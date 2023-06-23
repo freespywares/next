@@ -2,6 +2,7 @@ import { ApplyOptions } from "@sapphire/decorators";
 import { Args, Command } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
 import { AttachmentBuilder, type Message } from "discord.js";
+import { getDiscordMedia } from "../../../lib/utils/common";
 
 @ApplyOptions<Command.Options>({
 	description: "Blurs an image",
@@ -9,19 +10,17 @@ import { AttachmentBuilder, type Message } from "discord.js";
 })
 export class UserCommand extends Command {
 	public override async messageRun(message: Message, args: Args) {
-		const url = await args.pick("url");
-		const sigma = args.getOptionResult("sigma");
+		const media = await getDiscordMedia(message, args);
+		const sigma = args.getOption("sigma") ?? "5";
 
 		const { buffer, time } = await this.container.api.blur(
-			url.toString(),
-			sigma.unwrap()
+			media as string,
+			sigma
 		);
-
-		const file = new AttachmentBuilder(Buffer.from(buffer));
 
 		return send(message, {
 			content: time,
-			files: [file]
+			files: [new AttachmentBuilder(Buffer.from(buffer))]
 		});
 	}
 }
