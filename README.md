@@ -1,4 +1,5 @@
-# Experimental Zeyr
-This is an experimental version of Zeyr powered by it's own rust api for image manipulation
+# Things I would like to see implemented in the API (/apps/api)
 
-This repo is not being used in any instance of Zeyr (at the moment)
+1. ffmepg (conversion endpoints)
+2. compositioning images (overlays...)
+3. ratelimits (2/s based on user's id)
