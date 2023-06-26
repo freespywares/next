@@ -1,11 +1,16 @@
-import type { Events, MessageCommandErrorPayload } from "@sapphire/framework";
 import { Identifiers, Listener, type UserError } from "@sapphire/framework";
 import { reply } from "@sapphire/plugin-editable-commands";
+import type {
+	MessageSubcommandErrorPayload,
+	SubcommandPluginEvents
+} from "@sapphire/plugin-subcommands";
 
-export class UserEvent extends Listener<typeof Events.MessageCommandError> {
+export class UserEvent extends Listener<
+	typeof SubcommandPluginEvents.MessageSubcommandError
+> {
 	public async run(
 		{ context, message, identifier }: UserError,
-		{ message: msg }: MessageCommandErrorPayload
+		{ message: msg }: MessageSubcommandErrorPayload
 	) {
 		let error: string;
 

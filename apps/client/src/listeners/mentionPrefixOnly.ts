@@ -1,18 +1,18 @@
-import { str } from "../lib/utils/common";
 import type { Events } from "@sapphire/framework";
 import { Listener } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
+import { inlineCodeBlock } from "@sapphire/utilities";
 import type { Message } from "discord.js";
 
 export class UserEvent extends Listener<typeof Events.MentionPrefixOnly> {
 	public async run(message: Message) {
-		const prefix = this.container.client.options.defaultPrefix;
+		const prefies = this.container.client.options.defaultPrefix as string[];
 
 		return send(
 			message,
-			str("My prefix here is {prefix}, but you always can use slash commands", {
-				prefix
-			})
+			`hey, you can execute commands with the following prefixes: ${inlineCodeBlock(
+				prefies.join(", ")
+			)}`
 		);
 	}
 }

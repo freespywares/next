@@ -1,5 +1,5 @@
 import { ApplyOptions } from "@sapphire/decorators";
-import { type Args, Command } from "@sapphire/framework";
+import { Command, type Args } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
 import { Type } from "@sapphire/type";
 import { codeBlock, isThenable } from "@sapphire/utilities";
@@ -8,7 +8,7 @@ import { inspect } from "util";
 
 @ApplyOptions<Command.Options>({
 	aliases: ["ev"],
-	description: "eval code?",
+	description: "Evals any JavaScript code",
 	quotes: [],
 	preconditions: ["OwnerOnly"],
 	flags: ["async", "hidden", "showHidden", "silent", "s"],
@@ -45,9 +45,9 @@ export class UserCommand extends Command {
 		code: string,
 		flags: { async: boolean; depth: number; showHidden: boolean }
 	) {
-		let finalCode = code;
-
+		let finalCode: string;
 		if (flags.async) finalCode = `(async () => {\n${code}\n})();`;
+		else finalCode = code;
 
 		let success = true;
 		let result = null;

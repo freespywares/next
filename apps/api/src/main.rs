@@ -4,7 +4,7 @@ mod utils;
 use actix_web::{
     get,
     http::header::{CacheControl, CacheDirective},
-    middleware, web, App, HttpResponse, HttpServer, Responder,
+    middleware, web, App, HttpResponse, HttpRequest, HttpServer, Responder
 };
 
 #[get("/")]
@@ -28,14 +28,18 @@ async fn main() -> std::io::Result<()> {
             .service(hello)
             .service(health)
             .service(
+                web::scope("/v1/tools")
+                    .service(routes::tools::piston::piston)
+            )
+            .service(
                 web::scope("/v1/image")
-                    .service(routes::resize::resize)
-                    .service(routes::convert::convert_type)
-                    .service(routes::flip::flip_orientation)
-                    .service(routes::blur::blur_image)
-                    .service(routes::grayscale::grayscale)
-                    .service(routes::huerotate::huerotate)
-                    .service(routes::brighten::brighten),
+                    .service(routes::image::resize::resize)
+                    .service(routes::image::convert::convert_type)
+                    .service(routes::image::flip::flip_orientation)
+                    .service(routes::image::blur::blur_image)
+                    .service(routes::image::grayscale::grayscale)
+                    .service(routes::image::huerotate::huerotate)
+                    .service(routes::image::brighten::brighten),
             );
 
         app

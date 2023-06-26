@@ -1,16 +1,14 @@
+import { Result } from "@sapphire/framework";
 import "./lib/setup";
 
-import { ZeyrClient } from "./lib/structures/ZeyrClient";
-import { Result } from "@sapphire/framework";
+import { Zeyr } from "./lib/structures/zeyr";
 
-const client = new ZeyrClient();
+const client = new Zeyr();
 
-async function init() {
-	const resultClient = await Result.fromAsync(async () => await client.start());
+const main = async () => {
+	const login = await Result.fromAsync(async () => await client.start());
 
-	return resultClient.unwrapOrElse((error) => {
-		return client.panic(error);
-	});
-}
+	return login.unwrapOrElse((e) => client.panik(e));
+};
 
-init();
+main();

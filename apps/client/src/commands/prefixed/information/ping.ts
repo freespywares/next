@@ -1,4 +1,3 @@
-import { str } from "../../../lib/utils/common";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Command } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
@@ -6,24 +5,17 @@ import { roundNumber } from "@sapphire/utilities";
 import type { Message } from "discord.js";
 
 @ApplyOptions<Command.Options>({
-	description: "check zeyr's latency"
+	description: "ping pong"
 })
 export class UserCommand extends Command {
 	public override async messageRun(message: Message) {
-		const msg = await send(message, "wait..");
+		const msg = await send(message, "Ping?");
 
-		const ping = {
+		const content = "Websocket: {ws}\nAPI: {api}".format({
 			ws: roundNumber(this.container.client.ws.ping),
-			discord:
+			api:
 				(msg.editedTimestamp || msg.createdTimestamp) -
-				(message.editedTimestamp || message.createdTimestamp),
-			api: await this.container.api.ping().catch(() => "api down")
-		};
-
-		const content = str("ws: {ws}ms\ndiscord: {discord}ms\napi: {api}", {
-			ws: ping.ws,
-			discord: ping.discord,
-			api: ping.api
+				(message.editedTimestamp || message.createdTimestamp)
 		});
 
 		return send(message, content);

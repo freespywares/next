@@ -1,13 +1,11 @@
-import { str } from "../../../lib/utils/common";
 import type { Events, MessageCommandDeniedPayload } from "@sapphire/framework";
 import { Identifiers, Listener, type UserError } from "@sapphire/framework";
 import { reply } from "@sapphire/plugin-editable-commands";
-import { cast } from "@sapphire/utilities";
 
 export class UserEvent extends Listener<typeof Events.MessageCommandDenied> {
 	public async run(
-		{ context, message: content, identifier }: UserError,
-		{ message, command }: MessageCommandDeniedPayload
+		{ context, message, identifier }: UserError,
+		{ message: msg }: MessageCommandDeniedPayload
 	) {
 		let error: string;
 
@@ -15,19 +13,17 @@ export class UserEvent extends Listener<typeof Events.MessageCommandDenied> {
 
 		switch (identifier) {
 			case Identifiers.ArgsMissing:
-				error = str("Insufficient arguments provided, options: `{arguments}`", {
-					arguments: cast<string[]>(command.options.options).join(", ")
-				});
+				error = "Insufficient arguments provided";
 				break;
 
 			default:
-				error = content;
+				error = message;
 				break;
 		}
 
-		return reply(message, {
+		return reply(msg, {
 			content: error,
-			allowedMentions: { users: [message.author.id], roles: [] }
+			allowedMentions: { users: [msg.author.id], roles: [] }
 		});
 	}
 }

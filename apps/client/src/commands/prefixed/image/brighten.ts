@@ -6,16 +6,16 @@ import type { Message } from "discord.js";
 import { attachments } from "../../../lib/cache";
 
 @ApplyOptions<Command.Options>({
-	description: "blur an image"
+	description: "brighten an image"
 })
 export class UserCommand extends Command {
 	public override async messageRun(message: Message, args: Args) {
-		const sigma = await args.pick("number");
+		const value = await args.pick("number");
 		const url = await args
 			.pick("string")
 			.catch(() => attachments.get(message.channelId));
 
-		const image = await this.container.api.image.blur(url, { sigma });
+		const image = await this.container.api.image.brighten(url, { value });
 
 		if (isNullOrUndefined(image))
 			throw new UserError({
