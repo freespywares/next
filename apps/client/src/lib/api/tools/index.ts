@@ -15,4 +15,12 @@ export class APITools {
 			})
 		).then((x) => x.text());
 	}
+
+	public async sauce(url: string) {
+		return fetch(
+			`${this.url}/sauce?url={url}`.format({
+				url: encodeURIComponent(url)
+			})
+		).then((x) => x.json());
+	}
 }

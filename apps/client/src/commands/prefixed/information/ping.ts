@@ -11,7 +11,7 @@ export class UserCommand extends Command {
 	public override async messageRun(message: Message) {
 		const msg = await send(message, "Ping?");
 
-		const content = "Websocket: {ws}\nAPI: {api}".format({
+		const content = "WebSocket: {ws}ms\nAPI: {api}ms".format({
 			ws: roundNumber(this.container.client.ws.ping),
 			api:
 				(msg.editedTimestamp || msg.createdTimestamp) -

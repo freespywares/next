@@ -1,5 +1,6 @@
-import { Result } from "@sapphire/framework";
 import "./lib/setup";
+
+import { Result } from "@sapphire/framework";
 
 import { Zeyr } from "./lib/structures/zeyr";
 

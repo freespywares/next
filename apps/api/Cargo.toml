@@ -3,6 +3,10 @@ name = "image-api"
 version = "0.2.0"
 edition = "2021"
 
+[dependencies.sauce-api]
+git = "https://github.com/zeyrbot/sauce-api/"
+branch = "master"
+
 [dependencies]
 actix-web = "4"
 reqwest = "0.11.17"
@@ -11,3 +15,4 @@ md5 = "0.7.0"
 anyhow = "1.0.71"
 serde = { version = "1.0.163", features = ["derive"] }
 piston_rs = "0.4.3"
+serde_json = "1.0.99"

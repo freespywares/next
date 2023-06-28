@@ -2,6 +2,12 @@ import type { ArrayString } from "@skyra/env-utilities";
 import type { FormatArg } from "./common";
 import type { API } from "../api";
 
+declare module "@sapphire/pieces" {
+	interface Container {
+		api: API;
+	}
+}
+
 declare module "@skyra/env-utilities" {
 	interface Env {
 		OWNERS: ArrayString;
@@ -11,12 +17,6 @@ declare module "@skyra/env-utilities" {
 		REDIS_PASSWORD: string;
 		DLIST_TOKEN: string;
 		INVIDIOUS_BASE_URL: string;
-	}
-}
-
-declare module "@sapphire/pieces" {
-	interface Container {
-		api: API;
 	}
 }
 

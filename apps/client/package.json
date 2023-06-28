@@ -11,6 +11,7 @@
 		"@sapphire/discord.js-utilities": "6.0.7",
 		"@sapphire/fetch": "^2.4.1",
 		"@sapphire/framework": "^4.4.3",
+		"@sapphire/pieces": "^3.6.3",
 		"@sapphire/plugin-editable-commands": "^3.0.2",
 		"@sapphire/plugin-logger": "^3.0.3",
 		"@sapphire/plugin-scheduled-tasks": "^7.1.0",
@@ -21,7 +22,8 @@
 		"@skyra/env-utilities": "^1.2.0",
 		"@zeyrbot/dlist": "^1.1.2",
 		"discord.js": "^14.10.2",
-		"ms": "3.0.0-canary.1"
+		"ms": "3.0.0-canary.1",
+		"tslib": "^2.6.0"
 	},
 	"devDependencies": {
 		"@sapphire/cli": "^1.6.1",

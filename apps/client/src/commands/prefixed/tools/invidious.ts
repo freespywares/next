@@ -16,7 +16,7 @@ export class UserCommand extends Command {
 		const hl = args.getOption("hl") ?? "en";
 
 		const display = new PaginatedMessage({
-			template: new EmbedBuilder().setColor(Colors.Red)
+			template: new EmbedBuilder().setColor(Colors.NotQuiteBlack)
 		});
 
 		const url = `${
