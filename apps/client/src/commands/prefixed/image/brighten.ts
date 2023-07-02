@@ -1,9 +1,9 @@
+import { attachments } from "../../../lib/cache";
 import { ApplyOptions } from "@sapphire/decorators";
 import { Args, Command, UserError } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
 import { isNullOrUndefined } from "@sapphire/utilities";
 import type { Message } from "discord.js";
-import { attachments } from "../../../lib/cache";
 
 @ApplyOptions<Command.Options>({
 	description: "brighten an image"

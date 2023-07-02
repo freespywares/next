@@ -1,9 +1,9 @@
+import type { InvidiousVideo } from "../../../lib/api/types";
 import { ApplyOptions } from "@sapphire/decorators";
+import { PaginatedMessage } from "@sapphire/discord.js-utilities";
 import { FetchResultTypes, fetch } from "@sapphire/fetch";
 import { Args, Command } from "@sapphire/framework";
-import { PaginatedMessage } from "@sapphire/discord.js-utilities";
 import { Colors, EmbedBuilder, type Message } from "discord.js";
-import type { InvidiousVideo } from "../../../lib/api/types";
 
 @ApplyOptions<Command.Options>({
 	description: "search youtube videos (uses invidious api)",

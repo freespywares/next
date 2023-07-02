@@ -1,10 +1,10 @@
+import type { DiscordStatus } from "../../../lib/types/discordstatus";
 import { ApplyOptions } from "@sapphire/decorators";
 import { FetchResultTypes, fetch } from "@sapphire/fetch";
 import { Command } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
 import { codeBlock } from "@sapphire/utilities";
 import type { Message } from "discord.js";
-import type { DiscordStatus } from "../../../lib/types/discordstatus";
 
 @ApplyOptions<Command.Options>({
 	description: "check if discord is fucked up (again)",

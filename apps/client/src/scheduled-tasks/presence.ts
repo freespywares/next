@@ -1,8 +1,8 @@
+import { minutes } from "../lib/util/time";
 import { ApplyOptions } from "@sapphire/decorators";
 import { ScheduledTask } from "@sapphire/plugin-scheduled-tasks";
 import { isNullOrUndefined } from "@sapphire/utilities";
 import { ActivityType } from "discord.js";
-import { minutes } from "../lib/util/time";
 
 @ApplyOptions<ScheduledTask.Options>({
 	interval: minutes(5)

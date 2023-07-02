@@ -14,7 +14,7 @@ struct SauceError {
 }
 
 #[get("/sauce")]
-pub async fn sauce_iqdb(
+pub async fn sauce(
     query: web::Query<SauceQuery>
 ) -> impl Responder {
     let source = Yandex::create(()).await.unwrap();

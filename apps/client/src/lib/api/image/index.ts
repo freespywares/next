@@ -1,10 +1,10 @@
-import { FetchResultTypes, fetch } from "@sapphire/fetch";
 import {
-	type Response,
+	type EndpointParameters,
 	Endpoints,
 	type Payload,
-	type EndpointParameters
+	type Response
 } from "../types";
+import { FetchResultTypes, fetch } from "@sapphire/fetch";
 import { Result } from "@sapphire/framework";
 import { AttachmentBuilder } from "discord.js";
 

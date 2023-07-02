@@ -1,5 +1,5 @@
 import { ApplyOptions } from "@sapphire/decorators";
-import { Command, type Args } from "@sapphire/framework";
+import { type Args, Command } from "@sapphire/framework";
 import { send } from "@sapphire/plugin-editable-commands";
 import { Type } from "@sapphire/type";
 import { codeBlock, isThenable } from "@sapphire/utilities";
@@ -18,7 +18,7 @@ export class UserCommand extends Command {
 	public override async messageRun(message: Message, args: Args) {
 		const code = await args.rest("string");
 
-		const { result, success, type } = await this.eval(code, {
+		const { result, success, type } = await this.eval(message, code, {
 			async: args.getFlags("async"),
 			depth: Number(args.getOption("depth")) ?? 0,
 			showHidden: args.getFlags("hidden", "showHidden")
@@ -42,6 +42,8 @@ export class UserCommand extends Command {
 	}
 
 	private async eval(
+		// @ts-ignore :p
+		message: Message,
 		code: string,
 		flags: { async: boolean; depth: number; showHidden: boolean }
 	) {

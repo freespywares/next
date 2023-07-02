@@ -30,7 +30,7 @@ async fn main() -> std::io::Result<()> {
             .service(
                 web::scope("/v1/tools")
                     .service(routes::tools::piston::piston)
-                    .service(routes::tools::sauce::sauce_iqdb)
+                    .service(routes::tools::sauce::sauce)
             )
             .service(
                 web::scope("/v1/image")

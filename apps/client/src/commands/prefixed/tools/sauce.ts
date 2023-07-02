@@ -1,8 +1,8 @@
-import { ApplyOptions } from "@sapphire/decorators";
-import { Args, Command, UserError } from "@sapphire/framework";
-import { PaginatedMessage } from "@sapphire/discord.js-utilities";
-import { type Message } from "discord.js";
 import { attachments } from "../../../lib/cache";
+import { ApplyOptions } from "@sapphire/decorators";
+import { PaginatedMessage } from "@sapphire/discord.js-utilities";
+import { Args, Command, UserError } from "@sapphire/framework";
+import { type Message } from "discord.js";
 
 @ApplyOptions<Command.Options>({
 	description: "search for similar images",

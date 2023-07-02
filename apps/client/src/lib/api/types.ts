@@ -1,5 +1,5 @@
-import type { AttachmentBuilder } from "discord.js";
 import type { FormatArg } from "../types/common";
+import type { AttachmentBuilder } from "discord.js";
 
 export interface InvidiousVideo {
 	type: string;

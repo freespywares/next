@@ -1,8 +1,9 @@
 import "@sapphire/plugin-editable-commands/register";
 import "@sapphire/plugin-logger/register";
-import "@sapphire/plugin-subcommands/register";
 import "@sapphire/plugin-scheduled-tasks/register";
+import "@sapphire/plugin-subcommands/register";
 
+import type { FormatArg } from "./types/common";
 import {
 	ApplicationCommandRegistries,
 	RegisterBehavior
@@ -10,7 +11,6 @@ import {
 import { setup } from "@skyra/env-utilities";
 import * as colorette from "colorette";
 import { inspect } from "util";
-import type { FormatArg } from "./types/common";
 
 ApplicationCommandRegistries.setDefaultBehaviorWhenNotIdentical(
 	RegisterBehavior.BulkOverwrite

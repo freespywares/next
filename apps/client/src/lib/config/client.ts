@@ -1,5 +1,5 @@
 import { LogLevel } from "@sapphire/framework";
-import { GatewayIntentBits, Partials, type ClientOptions } from "discord.js";
+import { type ClientOptions, GatewayIntentBits, Partials } from "discord.js";
 
 export const clientConfig: ClientOptions = {
 	defaultPrefix: ["->", "~>", "-"],

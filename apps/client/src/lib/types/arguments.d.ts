@@ -1,6 +1,6 @@
-import type { ArrayString } from "@skyra/env-utilities";
-import type { FormatArg } from "./common";
 import type { API } from "../api";
+import type { FormatArg } from "./common";
+import type { ArrayString } from "@skyra/env-utilities";
 
 declare module "@sapphire/pieces" {
 	interface Container {

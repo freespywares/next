@@ -1,6 +1,6 @@
-import { SapphireClient, container } from "@sapphire/framework";
-import { clientConfig } from "../config/client";
 import { API } from "../api";
+import { clientConfig } from "../config/client";
+import { SapphireClient, container } from "@sapphire/framework";
 
 export class Zeyr extends SapphireClient {
 	constructor() {
