@@ -1,2 +1,2 @@
-pub mod sauce;
 pub mod piston;
+pub mod sauce;
