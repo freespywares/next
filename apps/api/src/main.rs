@@ -4,7 +4,7 @@ mod utils;
 use actix_web::{
     get,
     http::header::{CacheControl, CacheDirective},
-    middleware, web, App, HttpResponse, HttpRequest, HttpServer, Responder
+    middleware, web, App, HttpResponse, HttpServer, Responder
 };
 
 #[get("/")]

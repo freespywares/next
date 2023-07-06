@@ -4,12 +4,12 @@ use sauce_api::error::Error;
 use serde::{Serialize, Deserialize};
 
 #[derive(Deserialize)]
-struct SauceQuery {
+pub struct SauceQuery {
     url: String
 }
 
 #[derive(Serialize)]
-struct SauceError {
+pub struct SauceError {
     message: String
 }
 
